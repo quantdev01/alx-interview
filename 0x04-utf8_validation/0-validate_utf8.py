@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+Function to check if some data are utf-8
+"""
+
 
 def validUTF8(data):
     # Number of bytes in the current UTF-8 character
