@@ -61,4 +61,3 @@ request(url, function (err, res, body) {
   // Start printing the characters
   exactOrder(actors, 0);
 });
-
