@@ -4,37 +4,56 @@ Module, this will be checking a game
 """
 
 
-def sieve_of_eratosthenes(n):
-    """Generates a list of prime numbers up to n using the"""
-    primes = [True] * (n + 1)
-    primes[0] = primes[1] = False
-    for i in range(2, int(n**0.5) + 1):
-        if primes[i]:
-            for j in range(i*i, n + 1, i):
-                primes[j] = False
-    return [i for i in range(2, n + 1) if primes[i]]
+def sieve_of_eratosthenes(limit):
+    """
+    Implements the Sieve of Eratosthenes to find all prime numbers up to n.
+
+    Args:
+    n (int): The upper limit of the range to check for primes.
+
+    Returns:
+    list: A list of boolean values where True indicates a prime number.
+    """
+    is_prime = [True] * (limit + 1)
+    p = 2
+    while (p * p <= limit):
+        if is_prime[p]:
+            for i in range(p * p, limit + 1, p):
+                is_prime[i] = False
+        p += 1
+    primes = [p for p in range(2, limit + 1) if is_prime[p]]
+    return primes
 
 
 def isWinner(x, nums):
-    """Determines the winner of the most rounds in the Prime Game."""
-    if x < 1 or not nums:
+    """
+    Determines the winner of the Prime Game for multiple rounds.
+
+    Args:
+    x (int): The number of rounds.
+    nums (list): An array of n values for each round.
+
+    Returns:
+        str: The name of the player that won the most rounds,
+        or None if it's a tie.
+    """
+    if x <= 0 or not nums:
         return None
 
     max_n = max(nums)
     primes = sieve_of_eratosthenes(max_n)
+    prime_count = [0] * (max_n + 1)
+
+    for i in range(1, max_n + 1):
+        prime_count[i] = prime_count[i - 1]
+        if i in primes:
+            prime_count[i] += 1
 
     maria_wins = 0
     ben_wins = 0
 
     for n in nums:
-        primes_in_game = [p for p in primes if p <= n]
-        moves = 0
-        while primes_in_game:
-            prime = primes_in_game.pop(0)
-            moves += 1
-            primes_in_game = [p for p in primes_in_game if p % prime != 0]
-
-        if moves % 2 == 1:
+        if prime_count[n] % 2 == 1:
             maria_wins += 1
         else:
             ben_wins += 1
