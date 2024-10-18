@@ -5,7 +5,7 @@ Module, this will be checking a game
 
 
 def sieve_of_eratosthenes(n):
-    """Generates a list of prime numbers up to n using the Sieve of Eratosthenes."""
+    """Generates a list of prime numbers up to n using the"""
     primes = [True] * (n + 1)
     primes[0] = primes[1] = False
     for i in range(2, int(n**0.5) + 1):
@@ -13,6 +13,7 @@ def sieve_of_eratosthenes(n):
             for j in range(i*i, n + 1, i):
                 primes[j] = False
     return [i for i in range(2, n + 1) if primes[i]]
+
 
 def isWinner(x, nums):
     """Determines the winner of the most rounds in the Prime Game."""
