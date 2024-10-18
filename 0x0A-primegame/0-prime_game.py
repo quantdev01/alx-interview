@@ -5,7 +5,13 @@ Module, this will be checking a game
 
 
 def isWinner(x, nums):
+    """
+    description
+    """
     def sieve_of_eratosthenes(max_n):
+        """
+        sieve sieve_of_eratosthenes
+        """
         is_prime = [True] * (max_n + 1)
         p = 2
         while (p * p <= max_n):
